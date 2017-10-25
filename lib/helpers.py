@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 def get_training_parameters(rows=128, cols=128):
     img_rows, img_cols = rows, cols
     input_shape = (img_rows, img_cols, 3)
-    image_gen_batch_size = 32
+    image_gen_batch_size = 128
     image_scale = 1. / 255.0
     epochs = 40
     samples_per_epoch = 1000
