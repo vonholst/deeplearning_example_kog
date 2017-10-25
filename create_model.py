@@ -1,4 +1,3 @@
-# important!! keras==1.2.2
 
 import numpy as np
 from keras.preprocessing.image import ImageDataGenerator
@@ -65,8 +64,8 @@ model.compile(loss='categorical_crossentropy',
 
 training_weights = helpers.calculate_training_weights(train_generator)
 print("using class weights: {}".format(training_weights))
-steps_per_epoch = int(6000/image_gen_batch_size)  # unique samples / batch_size ?
-validation_steps = int(270/image_gen_batch_size)
+steps_per_epoch = int(train_generator.n/image_gen_batch_size)  # unique samples / batch_size ?
+validation_steps = int(validation_generator.n/image_gen_batch_size)
 
 if not os.path.exists(check_point_path):
     os.makedirs(check_point_path)
