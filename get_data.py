@@ -54,7 +54,8 @@ def load_image(*args, **kwargs):
                 print(u"Unhandled exception")
 
     except Exception as e:
-        print(str(e))
+        pass
+        # print(str(e))
 
 
 def remove_invalid(dir_paths):
@@ -81,9 +82,9 @@ def remove_invalid(dir_paths):
                         if reference_im is None:
                             print("Removed {}".format(current_image_path))
                             os.remove(current_image_path)
+                            break
 
-                        elif target_im.shape == reference_im.shape and not (
-                        np.bitwise_xor(target_im, reference_im).any()):
+                        elif target_im.shape == reference_im.shape and not np.bitwise_xor(target_im, reference_im).any():
                             print("Removed {}".format(current_image_path))
                             os.remove(current_image_path)
                             break
@@ -102,7 +103,8 @@ if __name__ == "__main__":
         'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n07865105',
         'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n07697537']
 
-    paths = ['pets', 'furniture', 'people', 'food', 'frankfurter', 'chili-dog', 'hotdog']
+    paths = ['non-hotdog/pets', 'non-hotdog/furniture', 'non-hotdog/people', 'non-hotdog/food',
+             'hotdog/frankfurter', 'hotdog/chili-dog', 'hotdog/hotdog']
 
     store_raw_images(paths, links)
     remove_invalid(paths)
