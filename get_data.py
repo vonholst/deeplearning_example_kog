@@ -58,8 +58,12 @@ def load_image(*args, **kwargs):
 
 
 def remove_invalid(dir_paths):
+    if not os.path.exists('invalid'):
+        os.makedirs('invalid')
+
     for dir_path in dir_paths:
         for reference in os.listdir(dir_path):
+
             invalid_paths = os.listdir('invalid')
             for target in invalid_paths:
                 try:
