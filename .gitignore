@@ -102,3 +102,5 @@ ENV/
 .DS_Store
 /hotdog
 /non-hotdog
+/train
+/dev
