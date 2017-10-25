@@ -30,20 +30,30 @@ def train_dev_splits_from_directories(test_percentage, max_dev):
 
     train_dir = './train/'
     dev_dir = './dev/'
-    if not os.path.exists(train_dir):
-        os.makedirs(train_dir)
+    hotdog_train_dir = '{}/hotdog/'.format(train_dir)
+    hotdog_dev_dir = '{}/hotdog/'.format(dev_dir)
+    non_hotdog_train_dir = '{}/non_hotdog/'.format(train_dir)
+    non_hotdog_dev_dir = '{}/non_hotdog/'.format(dev_dir)
+    for d in [hotdog_train_dir, hotdog_dev_dir, non_hotdog_train_dir, non_hotdog_dev_dir]:
+        if not os.path.exists(d):
+            os.makedirs(d)
 
-    if not os.path.exists(dev_dir):
-        os.makedirs(dev_dir)
-
-    for filename in train_files:
-        dst_filename = train_dir + "".join(filename.split('/')[1:])
+    for filename in hotdog_train:
+        dst_filename = hotdog_train_dir + "".join(filename.split('/')[1:])
         copyfile(filename, dst_filename)
 
-    for filename in dev_files:
-        dst_filename = dev_dir + "".join(filename.split('/')[1:])
+    for filename in hotdog_test:
+        dst_filename = hotdog_dev_dir + "".join(filename.split('/')[1:])
         copyfile(filename, dst_filename)
 
+    for filename in non_hotdog_train:
+        dst_filename = non_hotdog_train_dir + "".join(filename.split('/')[1:])
+        copyfile(filename, dst_filename)
+
+    for filename in non_hotdog_test:
+        dst_filename = non_hotdog_dev_dir + "".join(filename.split('/')[1:])
+        copyfile(filename, dst_filename)
+        
 
 if __name__ == "__main__":
     train_dev_splits_from_directories(0.3, 1000.0)
