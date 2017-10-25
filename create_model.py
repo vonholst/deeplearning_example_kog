@@ -4,8 +4,12 @@ import numpy as np
 from keras.preprocessing.image import ImageDataGenerator
 from keras import optimizers
 from keras.callbacks import ModelCheckpoint
-from lib import helpers
+from lib import helpers, model
 
+from PIL import ImageFile
+import os
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 np.random.seed(123)  # for reproducibility
 
@@ -19,6 +23,7 @@ epochs = options["epochs"]
 
 train_image_path = './train'
 validation_image_path = './dev'
+check_point_path = './model/checkpoints'
 
 train_datagen = ImageDataGenerator(
     rescale=image_scale,
@@ -49,7 +54,8 @@ validation_generator = validation_datagen.flow_from_directory(
 
 number_of_classes = len(train_generator.class_indices)
 # Define model architecture
-model = helpers.create_model(input_shape, number_of_classes=number_of_classes)
+# model = helpers.create_model(input_shape, number_of_classes=number_of_classes)
+model = model.keras_model(input_shape)
 
 # opt = optimizers.SGD()
 opt = optimizers.adam()
@@ -61,8 +67,13 @@ training_weights = helpers.calculate_training_weights(train_generator)
 print("using class weights: {}".format(training_weights))
 steps_per_epoch = int(6000/image_gen_batch_size)  # unique samples / batch_size ?
 validation_steps = int(270/image_gen_batch_size)
-check_point_path = 'model/checkpoints/weights.ep_{epoch:02d}-val_acc_{val_acc:.2f}_val_loss_{val_loss:.3f}.hdf5'
-checkpoint_callback = ModelCheckpoint(check_point_path, monitor='acc', verbose=0, save_best_only=False,
+
+if not os.path.exists(check_point_path):
+    os.makedirs(check_point_path)
+
+check_point_file = 'weights.ep_{epoch:02d}-val_acc_{val_acc:.2f}_val_loss_{val_loss:.3f}.hdf5'
+check_point_path_definition = check_point_path + '/' + check_point_file
+checkpoint_callback = ModelCheckpoint(check_point_path_definition, monitor='acc', verbose=0, save_best_only=False,
                                       save_weights_only=False, mode='auto', period=3)
 
 training_history = model.fit_generator(
