@@ -40,6 +40,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         self.captureSession.startRunning()
         setupVision()
         self.classificationText.text = ""
+        cameraView.bringSubview(toFront:  self.classificationText)
     }
     
     override func viewDidLayoutSubviews() {

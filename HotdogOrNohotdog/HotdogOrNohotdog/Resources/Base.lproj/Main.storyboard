@@ -18,24 +18,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m5n-eY-Pvc">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="630"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Classification" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoQ-Fr-gdT">
+                                        <rect key="frame" x="45.5" y="303.5" width="285" height="60"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.01666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstItem="eoQ-Fr-gdT" firstAttribute="centerX" secondItem="m5n-eY-Pvc" secondAttribute="centerX" id="EwE-9r-QbZ"/>
+                                    <constraint firstItem="eoQ-Fr-gdT" firstAttribute="centerY" secondItem="m5n-eY-Pvc" secondAttribute="centerY" id="OAo-Wc-m7W"/>
+                                </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hotdog / No hotdog" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoQ-Fr-gdT">
-                                <rect key="frame" x="111" y="638" width="153" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="m5n-eY-Pvc" secondAttribute="trailing" id="JAh-59-qh5"/>
-                            <constraint firstItem="eoQ-Fr-gdT" firstAttribute="top" secondItem="m5n-eY-Pvc" secondAttribute="bottom" constant="8" id="fnn-Mm-6m1"/>
                             <constraint firstItem="m5n-eY-Pvc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="g76-w2-O1r"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="m5n-eY-Pvc" secondAttribute="bottom" id="j6n-3d-fUe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="m5n-eY-Pvc" secondAttribute="top" constant="20" id="szN-gT-HSd"/>
-                            <constraint firstItem="eoQ-Fr-gdT" firstAttribute="centerX" secondItem="m5n-eY-Pvc" secondAttribute="centerX" id="ult-xe-crD"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="eoQ-Fr-gdT" secondAttribute="bottom" constant="8" id="xKi-sd-0aW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
