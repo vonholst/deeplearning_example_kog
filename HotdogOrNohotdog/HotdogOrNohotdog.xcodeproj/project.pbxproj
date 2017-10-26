@@ -12,11 +12,8 @@
 		048E24BE1FA0D55A0070322E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 048E24BC1FA0D55A0070322E /* Main.storyboard */; };
 		048E24C01FA0D55A0070322E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048E24BF1FA0D55A0070322E /* Assets.xcassets */; };
 		048E24C31FA0D55A0070322E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 048E24C11FA0D55A0070322E /* LaunchScreen.storyboard */; };
-		048E24CE1FA0D55A0070322E /* HotdogOrNohotdogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E24CD1FA0D55A0070322E /* HotdogOrNohotdogTests.swift */; };
-		048E24D91FA0D55A0070322E /* HotdogOrNohotdogUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E24D81FA0D55A0070322E /* HotdogOrNohotdogUITests.swift */; };
-		048E24E81FA0D6140070322E /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 048E24E61FA0D5A90070322E /* GoogLeNetPlaces.mlmodel */; };
-		048E24EA1FA1CC430070322E /* TinyYOLO.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 048E24E91FA1CC170070322E /* TinyYOLO.mlmodel */; };
 		048E24EC1FA1D74C0070322E /* hotdog_classifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 048E24EB1FA1D72E0070322E /* hotdog_classifier.mlmodel */; };
+		464B20A21FA1EA4D00D288B2 /* hotdog.wav in Resources */ = {isa = PBXBuildFile; fileRef = 464B20A11FA1E45B00D288B2 /* hotdog.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,9 +47,8 @@
 		048E24D41FA0D55A0070322E /* HotdogOrNohotdogUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HotdogOrNohotdogUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		048E24D81FA0D55A0070322E /* HotdogOrNohotdogUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotdogOrNohotdogUITests.swift; sourceTree = "<group>"; };
 		048E24DA1FA0D55A0070322E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		048E24E61FA0D5A90070322E /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
-		048E24E91FA1CC170070322E /* TinyYOLO.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TinyYOLO.mlmodel; sourceTree = "<group>"; };
 		048E24EB1FA1D72E0070322E /* hotdog_classifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = hotdog_classifier.mlmodel; path = ../../../model/hotdog_classifier.mlmodel; sourceTree = "<group>"; };
+		464B20A11FA1E45B00D288B2 /* hotdog.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hotdog.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,12 +128,11 @@
 		048E24E71FA0D5D60070322E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				464B20A11FA1E45B00D288B2 /* hotdog.wav */,
 				048E24EB1FA1D72E0070322E /* hotdog_classifier.mlmodel */,
 				048E24C11FA0D55A0070322E /* LaunchScreen.storyboard */,
 				048E24BC1FA0D55A0070322E /* Main.storyboard */,
 				048E24BF1FA0D55A0070322E /* Assets.xcassets */,
-				048E24E91FA1CC170070322E /* TinyYOLO.mlmodel */,
-				048E24E61FA0D5A90070322E /* GoogLeNetPlaces.mlmodel */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -252,6 +247,7 @@
 				048E24C31FA0D55A0070322E /* LaunchScreen.storyboard in Resources */,
 				048E24C01FA0D55A0070322E /* Assets.xcassets in Resources */,
 				048E24BE1FA0D55A0070322E /* Main.storyboard in Resources */,
+				464B20A21FA1EA4D00D288B2 /* hotdog.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,8 +273,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				048E24EC1FA1D74C0070322E /* hotdog_classifier.mlmodel in Sources */,
-				048E24EA1FA1CC430070322E /* TinyYOLO.mlmodel in Sources */,
-				048E24E81FA0D6140070322E /* GoogLeNetPlaces.mlmodel in Sources */,
 				048E24BB1FA0D55A0070322E /* ViewController.swift in Sources */,
 				048E24B91FA0D55A0070322E /* AppDelegate.swift in Sources */,
 			);
@@ -288,7 +282,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				048E24CE1FA0D55A0070322E /* HotdogOrNohotdogTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,7 +289,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				048E24D91FA0D55A0070322E /* HotdogOrNohotdogUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,7 +439,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YP2L745XJ5;
+				DEVELOPMENT_TEAM = 2PSJD7R5S5;
 				INFOPLIST_FILE = HotdogOrNohotdog/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiq.HotdogOrNohotdog.HotdogOrNohotdog;
@@ -462,7 +454,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YP2L745XJ5;
+				DEVELOPMENT_TEAM = 2PSJD7R5S5;
 				INFOPLIST_FILE = HotdogOrNohotdog/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiq.HotdogOrNohotdog.HotdogOrNohotdog;

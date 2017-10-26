@@ -28,7 +28,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         session.addInput(input)
         return session
     }()
-    
+
+    var player: AVAudioPlayer?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.cameraView?.layer.addSublayer(self.cameraLayer)
@@ -37,6 +39,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         self.captureSession.addOutput(videoOutput)
         self.captureSession.startRunning()
         setupVision()
+        self.classificationText.text = ""
     }
     
     override func viewDidLayoutSubviews() {
@@ -53,21 +56,44 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     func handleClassifications(request: VNRequest, error: Error?) {
-        guard let observations = request.results
+        guard let observations = request.results as? [VNClassificationObservation]
             else { print("no results: \(error!)"); return }
-        let classifications = observations.flatMap({ $0 as? VNClassificationObservation }) // [0...4]
-            .filter({ $0.confidence > 0.3 })
-            .sorted(by: { $0.confidence > $1.confidence })
-            .map {
-                (prediction: VNClassificationObservation) -> String in
-                return "\(round(prediction.confidence * 100 * 100)/100)%: \(prediction.identifier)"
-        }
-        DispatchQueue.main.async {
-            print(classifications.joined(separator: "###"))
-            self.classificationText.text = classifications.joined(separator: "\n")
+        
+        guard let best = observations.first
+            else { fatalError("can't get best result") }
+        
+        print("\(best.identifier), \(best.confidence)")
+        
+        // latch to hotdog / no-hotdog
+        if best.confidence > 0.98 && best.identifier == "hotdog" {
+            DispatchQueue.main.async {
+                if self.classificationText.text == "" {
+                    self.playSound()
+                }
+                self.classificationText.text = "🌭"
+            }
+        } else if best.confidence > 0.99 && best.identifier == "non_hotdog" {
+            DispatchQueue.main.async {
+                self.classificationText.text = ""
+            }
         }
     }
     
+    func playSound() {
+        
+        guard let url = Bundle.main.url(forResource: "hotdog", withExtension: "wav") else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
+            guard let player = player else { return }
+            player.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return

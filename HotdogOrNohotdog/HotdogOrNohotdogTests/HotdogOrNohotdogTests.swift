@@ -6,7 +6,7 @@
 //  Copyright © 2017 HiQ. All rights reserved.
 //
 
-import XCTest
+//import XCTest
 @testable import HotdogOrNohotdog
 
 class HotdogOrNohotdogTests: XCTestCase {
