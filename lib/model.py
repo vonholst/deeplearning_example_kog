@@ -3,8 +3,11 @@ from keras.models import Sequential
 from keras.layers import ELU
 from keras.layers.core import Dense, Activation, Flatten, Dropout
 from keras.layers.convolutional import Conv2D, ZeroPadding2D, Convolution2D
-from keras.layers.pooling import MaxPooling2D
+from keras.layers.pooling import MaxPooling2D, GlobalAveragePooling2D
 from keras.constraints import maxnorm
+from keras.applications.inception_v3 import InceptionV3
+from keras.applications.mobilenet import MobileNet
+from keras.models import Model
 
 
 def keras_model(input_shape):
@@ -164,3 +167,49 @@ def VGG_16_mod(input_shape, weights_path=None):
         model.load_weights(weights_path)
 
     return model
+
+
+def retrained_mobilenet(weigths_path=None):
+    base_model = MobileNet(weights='imagenet', include_top=False)
+    # add a global spatial average pooling layer
+    x = base_model.output
+    x = GlobalAveragePooling2D()(x)
+    # let's add a fully-connected layer
+    x = Dense(1024, activation='relu')(x)
+    # and a logistic layer -- let's say we have 200 classes
+    predictions = Dense(2, activation='softmax')(x)
+
+    # this is the model we will train
+    model = Model(inputs=base_model.input, outputs=predictions)
+
+    # first: train only the top layers (which were randomly initialized)
+    # i.e. freeze all convolutional InceptionV3 layers
+    for layer in base_model.layers:
+        layer.trainable = False
+
+    return model
+
+
+def retrained_inception_v3(weights_path=None):
+    # create the base pre-trained model
+    base_model = InceptionV3(weights='imagenet', include_top=False)
+
+    # add a global spatial average pooling layer
+    x = base_model.output
+    x = GlobalAveragePooling2D()(x)
+    # let's add a fully-connected layer
+    x = Dense(1024, activation='relu')(x)
+    # and a logistic layer -- let's say we have 200 classes
+    predictions = Dense(2, activation='softmax')(x)
+
+    # this is the model we will train
+    model = Model(inputs=base_model.input, outputs=predictions)
+
+    # first: train only the top layers (which were randomly initialized)
+    # i.e. freeze all convolutional InceptionV3 layers
+    for layer in base_model.layers:
+        layer.trainable = False
+
+    return model
+    # compile the model (should be done *after* setting layers to non-trainable)
+    # model.compile(optimizer='rmsprop', loss='categorical_crossentropy')
