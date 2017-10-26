@@ -12,7 +12,7 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 np.random.seed(123)  # for reproducibility
 
-options = helpers.get_training_parameters(rows=128, cols=128)
+options = helpers.get_training_parameters(rows=224, cols=224)
 img_rows = options["img_rows"]
 img_cols = options["img_cols"]
 image_gen_batch_size = options["image_gen_batch_size"]
@@ -55,7 +55,7 @@ number_of_classes = len(train_generator.class_indices)
 # Define model architecture
 # model = helpers.create_model(input_shape, number_of_classes=number_of_classes)
 
-model = model.old_model(input_shape, weights_path='./model/keras_model.h5')
+model = model.retrained_mobilenet()
 
 # opt = optimizers.SGD()
 opt = optimizers.adam()
