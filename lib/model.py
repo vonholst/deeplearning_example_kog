@@ -93,7 +93,7 @@ def image_classifier(input_shape, weights_path=None):
     return model
 
 
-def karas_model_2(input_shape):
+def karas_model_2(input_shape, weights_path=None):
     model = Sequential()
     model.add(Convolution2D(16, 8, 8, subsample=(4, 4), border_mode='valid', input_shape=input_shape))
     model.add(ELU())
@@ -108,6 +108,10 @@ def karas_model_2(input_shape):
     model.add(ELU())
     model.add(Dense(2))
     model.add(Activation('softmax'))
+
+    if weights_path:
+        model.load_weights(weights_path)
+
     return model
 
 
