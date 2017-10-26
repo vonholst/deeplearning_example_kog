@@ -66,14 +66,14 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         print("\(best.identifier), \(best.confidence)")
         
         // latch to hotdog / no-hotdog
-        if best.confidence > 0.98 && best.identifier == "hotdog" {
+        if best.confidence > 0.7 && best.identifier == "hotdog" {
             DispatchQueue.main.async {
                 if self.classificationText.text == "" {
                     self.playSound()
                 }
                 self.classificationText.text = "🌭"
             }
-        } else if best.confidence > 0.99 && best.identifier == "non_hotdog" {
+        } else if best.confidence > 0.9 && best.identifier == "non_hotdog" {
             DispatchQueue.main.async {
                 self.classificationText.text = ""
             }

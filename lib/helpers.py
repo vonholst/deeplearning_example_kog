@@ -7,6 +7,8 @@ from keras.layers import Dense, Dropout, Flatten
 from keras.layers import MaxPooling2D, Conv2D
 from keras.constraints import maxnorm
 import matplotlib.pyplot as plt
+from keras.utils.generic_utils import CustomObjectScope
+# from keras.models import load_model
 
 
 def get_training_parameters(rows=128, cols=128):
@@ -92,7 +94,8 @@ def save_model(model, class_indices, training_history=None):
     with open("./model/keras_model.json", "w") as json_file:
         json_file.write(model_json)
     # serialize weights to HDF5
-    model.save_weights("./model/keras_model.h5")
+    # model.save_weights("./model/keras_model.h5")
+    model.save("./model/keras_model.h5")
     print("Saved model to disk")
     with open("./model/keras_model_classes.json", 'w') as outfile:
         json.dump(class_indices, outfile)
@@ -101,11 +104,11 @@ def save_model(model, class_indices, training_history=None):
             json.dump(training_history.history, outfile)
 
 
-def load_model():
+def load_model(model_path="./model/keras_model.h5"):
     # load json and create model
-    json_file = open('./model/keras_model.json', 'r')
-    loaded_model_json = json_file.read()
-    json_file.close()
+    with open('./model/keras_model.json', 'r') as json_file:
+        loaded_model_json = json_file.read()
+    # model = load_model(model_path)
     model = model_from_json(loaded_model_json)
     # load weights into new model
     model.load_weights("./model/keras_model.h5")
