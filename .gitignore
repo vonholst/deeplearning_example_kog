@@ -104,3 +104,4 @@ ENV/
 /non-hotdog
 /train
 /dev
+/model/checkpoints
