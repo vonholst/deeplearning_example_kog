@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from keras.models import Sequential
+from keras.layers import ELU
 from keras.layers.core import Dense, Activation, Flatten, Dropout
 from keras.layers.convolutional import Conv2D, ZeroPadding2D, Convolution2D
 from keras.layers.pooling import MaxPooling2D
@@ -89,6 +90,24 @@ def image_classifier(input_shape, weights_path=None):
     model.add(Dense(2, activation='softmax'))
     if weights_path:
         model.load_weights(weights_path)
+    return model
+
+
+def karas_model_2(input_shape):
+    model = Sequential()
+    model.add(Convolution2D(16, 8, 8, subsample=(4, 4), border_mode='valid', input_shape=input_shape))
+    model.add(ELU())
+    model.add(Convolution2D(32, 5, 5, subsample=(2, 2), border_mode="same"))
+    model.add(ELU())
+    model.add(Convolution2D(64, 5, 5, subsample=(2, 2), border_mode="same"))
+    model.add(Flatten())
+    model.add(Dropout(.2))
+    model.add(ELU())
+    model.add(Dense(512))
+    model.add(Dropout(.5))
+    model.add(ELU())
+    model.add(Dense(2))
+    model.add(Activation('softmax'))
     return model
 
 
