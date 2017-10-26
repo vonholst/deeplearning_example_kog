@@ -37,9 +37,9 @@ def keras_model(input_shape):
 
 def old_model(input_shape):
     # Define model architecture
-    # 1x100 -> (3) 32x100 ,(3) 32x100, [4] 25, (3) 25, (3) 25, [2] 12, (3) 12, (3) 12, [2] 6, FC...
+    # 1x128 -> (3) 32x128 ,(3) 32x128, [2] 64, (3) 64x64, (3) 64x64, [2] 32, (3) 128x32, (3) 128x32, [2] 16 FC...
     model = Sequential()
-    model.add(Conv2D(32, (3, 3), input_shape=input_shape, activation='relu', padding='same'))
+    model.add(Conv2D(32, (4, 4), input_shape=input_shape, activation='relu', padding='same'))
     model.add(Dropout(0.2))
     model.add(Conv2D(32, (3, 3), activation='relu', padding='same'))
     model.add(MaxPooling2D(pool_size=(4, 4)))
@@ -53,9 +53,9 @@ def old_model(input_shape):
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Flatten())
     model.add(Dropout(0.2))
-    model.add(Dense(128, activation='relu', kernel_constraint=maxnorm(3)))
+    model.add(Dense(256, activation='relu', kernel_constraint=maxnorm(3)))
     model.add(Dropout(0.5))
-    model.add(Dense(64, activation='relu', kernel_constraint=maxnorm(3)))
+    model.add(Dense(256, activation='relu', kernel_constraint=maxnorm(3)))
     model.add(Dropout(0.5))
     model.add(Dense(2, activation='softmax'))
 
