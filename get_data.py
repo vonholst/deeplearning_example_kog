@@ -101,10 +101,12 @@ if __name__ == "__main__":
         'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n00021265',
         'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n07690019',
         'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n07865105',
-        'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n07697537']
+        'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n07697537',
+        'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n07697313',
+    ]
 
     paths = ['non-hotdog/pets', 'non-hotdog/furniture', 'non-hotdog/people', 'non-hotdog/food',
-             'hotdog/frankfurter', 'hotdog/chili-dog', 'hotdog/hotdog']
+             'hotdog/frankfurter', 'hotdog/chili-dog', 'hotdog/hotdog', 'non-hotdog/hamburger']
 
     store_raw_images(paths, links)
     remove_invalid(paths)
