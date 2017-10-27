@@ -11,7 +11,7 @@ with open('./model/keras_model_classes.json') as data_file:
 
 if True:
     with CustomObjectScope({'relu6': keras.applications.mobilenet.relu6,'DepthwiseConv2D': keras.applications.mobilenet.DepthwiseConv2D}):
-        model = load_model("./model/checkpoints/weights.ep_35-val_acc_0.95_val_loss_0.169.hdf5")
+        model = load_model("./model/keras_model.h5")
 else:
     model = load_model("./model/keras_model.h5")
 
