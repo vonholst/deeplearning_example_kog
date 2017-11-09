@@ -4,20 +4,18 @@ import numpy as np
 from keras.preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
 from keras import optimizers
-from lib.helpers import get_training_parameters, load_model, plot_training_history
+from lib.helpers import get_training_parameters, plot_training_history
 import json
+from keras.models import load_model
+from keras.utils.generic_utils import CustomObjectScope
+import keras
 
 np.random.seed(123)  # for reproducibility
 
-options = get_training_parameters()
-model, class_indices = load_model()
+options = get_training_parameters(rows=224, cols=224)
 
 validation_image_path = './dev'
 
-opt = optimizers.SGD()
-model.compile(loss='categorical_crossentropy',
-              optimizer=opt,
-              metrics=['accuracy'])
 
 val_datagen = ImageDataGenerator(
     rescale=options["image_scale"],
@@ -58,19 +56,26 @@ if __name__ == "__main__":
 
     plot_training_history(training_history)
 
-    batch = val_generator.next()
-    for i in range(batch[0].shape[0]):
-        im = batch[0][i]
-        target = batch[1][i]
+    with open('./model/keras_model_classes.json') as data_file:
+        class_indices = json.load(data_file)
 
-        img = im.reshape(1, options["img_rows"], options["img_cols"], 3)
-        result = model.predict(img)
-        target_id = target.argmax()
-        target_class = class_from_id(target_id, class_indices)
-        result_class = class_from_id(result.argmax(), class_indices)
-        result_confidence = result[0][target_id] * 100
+    with CustomObjectScope({'relu6': keras.applications.mobilenet.relu6,'DepthwiseConv2D': keras.applications.mobilenet.DepthwiseConv2D}):
+        model = load_model("./model/keras_model.h5")
 
-        if target_class != result_class:
-            show_result(im, target_class, result_class, result_confidence)
-        else:
-            print("Correct")
+    for _ in range(10):
+        batch = val_generator.next()
+        for i in range(batch[0].shape[0]):
+            im = batch[0][i]
+            target = batch[1][i]
+
+            img = im.reshape(1, options["img_rows"], options["img_cols"], 3)
+            result = model.predict(img)
+            target_id = target.argmax()
+            target_class = class_from_id(target_id, class_indices)
+            result_class = class_from_id(result.argmax(), class_indices)
+            result_confidence = result[0][target_id] * 100
+
+            if target_class != result_class:
+                show_result(im, target_class, result_class, result_confidence)
+            else:
+                print("Correct {}".format(i))
